@@ -1,0 +1,54 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class RockPaperScissor {
+    public static void main(String[] args) {
+        Scanner read = new Scanner(System.in);
+        Random random = new Random();
+        //System.out.println ("Please enter:  1 For Rock 2 For Paper 3 For Scissor");
+        int myTurn;
+        int computerTurn;
+        int myWin = 0, computerWin = 0;
+        String myChoiceName;
+        String computermyChoiceName;
+
+
+        while (myWin != 3 && computerWin != 3)
+
+        {
+            System.out.println("\nPlease select\n");
+            System.out.println("1- For Rock ");
+            System.out.println("2- For Paper: ");
+            System.out.println("3- For Scissor: \n");
+            myTurn = read.nextInt();
+            if (myTurn == 1)
+                myChoiceName = "Rock";
+            else if (myTurn == 2)
+                myChoiceName = "paper";
+            else
+                myChoiceName = "Scissor";
+
+            System.out.println("Your choice: " + myTurn);
+
+            computerTurn = random.nextInt(3 - 1 + 1) + 1;
+            if (computerTurn == 1)
+                computermyChoiceName = "Rock";
+            else if (computerTurn == 2)
+                computermyChoiceName = "paper";
+            else
+                computermyChoiceName = "Scissor";
+            if (computerTurn == myTurn)
+                computerWin++;
+            else
+                myWin++;
+                
+            System.out.println("You go " + myChoiceName + " Computer goes " + computermyChoiceName + "! You won " + myWin + " times, Computer won " + computerWin + " times.");
+
+        }
+
+        if (myWin > computerWin)
+            System.out.println("\n\n CONGRATULATIONS! YOU WiN the game! \n" + "\n\t***End of Program***");
+        else
+            System.out.println("You loose the game");
+    }
+}
