@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class Vehicles {
+    public static void main(String[] args) {
+
+        /*Write a program that allows you to enter the height of 10 students,
+                then show the average height, and how many elements are above average,
+        how many are below average.*/
+
+        System.out.println("Enter the hight of the students 1 by 1");
+        Scanner read = new Scanner(System.in);
+        double[] studentHight = new double[10];
+        double studentHightSum = 0;
+        double averageHight;
+        int count = 0;
+        int aboveAveCounter = 0;
+
+        for (int i = 0; i < 10; i++) {
+            studentHight[i] = read.nextDouble();
+            studentHightSum = studentHightSum + studentHight[i];
+            count++;
+        }
+        averageHight = studentHightSum / count;
+        for (int j = 0; j < 10; j++) {
+            if (studentHight[j] >= averageHight) {
+                aboveAveCounter++;
+            }
+        }
+        System.out.println("The average hight is : " + averageHight);
+        System.out.println("Number of students above average : " + aboveAveCounter);
+        System.out.println("Number of student below average  : " + (10 - aboveAveCounter));
+    }
+}
