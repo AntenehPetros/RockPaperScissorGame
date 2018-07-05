@@ -22,3 +22,74 @@
         
         
 /*****************************************************************************************/
+
+
+
+
+
+
+/*****************************************************************************************/
+import java.util.Random;
+import java.util.Scanner;
+
+public class CountCharacters {
+    public static void main(String[] args) {
+
+
+        //int[] myBoard = new int[10];
+        //int[] computerboard = new int[10];
+        Scanner read = new Scanner(System.in);
+        boolean rightShoot = false;
+
+        System.out.println("\n\nSelect the cell you want to place the short boat");
+        int playerShortBoatCell = read.nextInt();
+        System.out.println("Your short boat is at cell  " + playerShortBoatCell + "\n");
+        System.out.println("Select the first cell you want to place your long boat ");
+        int playerLongBoatFirstCell = read.nextInt();
+        int playerLongBoatsecondCell = playerLongBoatFirstCell + 1;
+        System.out.println("Your long boat is at cell  " + playerLongBoatFirstCell + " and " + playerLongBoatsecondCell + "\n");
+
+        Random random = new Random();
+        int computerShortBoatCell = random.nextInt(10 - 1 + 1) + 1;
+        int computerLongBoatFirstCell = random.nextInt(10 - 1 + 1) + 1;
+        int computerLongBoatSecondCell = computerLongBoatFirstCell + 1;
+        System.out.println("Computer Select " + computerShortBoatCell + " for the short boat and " + computerLongBoatFirstCell + " and " + computerLongBoatSecondCell + " for the long boat \n");
+        System.out.println("The computer pick the cells for both the short and long boat \n");
+        System.out.println("Now you can choose and shoot a cell to hit your opponents boat");
+
+        System.out.print("Enter the cell you want to shoot: ");
+        int playerShoot = read.nextInt();
+        int computerShoot; //= random.nextInt(10 - 1 + 1) + 1;
+
+        while (!rightShoot) {
+
+            computerShoot= random.nextInt(10 - 1 + 1) + 1;
+
+            if (playerShoot == computerShortBoatCell || playerShoot == computerLongBoatFirstCell || playerShoot == computerLongBoatSecondCell) {
+                System.out.println("You win the Game!");
+                break;
+
+            }
+
+            else if (computerShoot == playerShortBoatCell || computerShoot == playerLongBoatFirstCell || computerShoot == playerLongBoatsecondCell) {
+                System.out.println("Computer shot your boat at cell " + computerShoot + "\n");
+                System.out.println("You loss the Game!!!");
+                break;
+            }
+            else
+            {
+                System.out.println(" \nYou both miss the shot! Try again! \n");
+                System.out.print("Enter the cell you want to shoot: ");
+                playerShoot = read.nextInt();
+                rightShoot = false;
+            }
+
+
+
+        }
+
+    }
+}
+
+/*****************************************************************************************/
+
