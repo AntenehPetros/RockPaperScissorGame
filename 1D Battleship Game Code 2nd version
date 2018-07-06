@@ -1,0 +1,400 @@
+
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class CountCharacters {
+    public static void main(String[] args) {
+
+        //System.out.println("");
+
+        Scanner read = new Scanner(System.in);
+
+
+        System.out.println("\n");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t****************************");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t*                          *");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t* WELCOME TO 1D BATTLESHIP *");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t*                          *");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t****************************");
+
+
+        System.out.print("Please enter your name and press enter: ");
+        String playerName = read.nextLine();
+        System.out.println("\nWelcome " + playerName + "! My name is COMPUTER LAB and I will be your opponent today. Get ready for the battle!!\n");
+
+        System.out.println("Here is your current battle-board. Please choose where to place your short boat");
+        playerInitialBattelBoard();
+        System.out.println();
+
+
+        System.out.print("Enter a spot (1 - 10):  ");
+        int playerShortBoatCell = read.nextInt();
+
+        System.out.println("\nHere is your current battle-board. Please choose where to place your long boat:");
+        playerShortBoatPlacement(playerShortBoatCell);
+
+        System.out.print("\nEnter a spot for the head of your long boat (1-10): ");
+        int playerLongBoatFirstCell = read.nextInt();
+        int playerLongBoatsecondCell = playerLongBoatFirstCell + 1;
+
+        System.out.println("\nAll set up! BATTLE BEGINS.\n");
+
+        System.out.println("\n" + playerName + ":");
+        playerLongBoatPlacement(playerShortBoatCell, playerLongBoatFirstCell);
+
+        System.out.println("\n\nComputer:");
+        computerInitialBattelBoard();
+
+
+        Random random = new Random();
+        int computerShortBoatCell = random.nextInt(10 - 1 + 1) + 1;
+        int computerLongBoatFirstCell = random.nextInt(10 - 1 + 1) + 1;
+        int computerLongBoatSecondCell = computerLongBoatFirstCell + 1;
+        System.out.println("\nComputer Select " + computerShortBoatCell + " for the short boat and " + computerLongBoatFirstCell + " and " + computerLongBoatSecondCell + " for the long boat \n");
+
+
+        int playerShot;
+        int computerShot;
+
+        int playerPerfectShotCount = 0;
+        int playerWrongShotCount = 0;
+        int computerPerfectShotCount = 0;
+        int computerWrongShotCount = 0;
+
+        int playerFristCorrectShot = 0, playerSecondCorrectShot = 0, playerThirdCorrectShot = 0;
+        int playerFristWrongShot = 0, playerSecondWrongShot = 0, playerThirdWrongShot = 0;
+        int computerFristCorrectShot=0, computerSecondCorrectShot=0, computerThirdCorrectShot=0;
+        int computerFristWrongShot=0, computerSecondWrongShot=0, computerThirdWrongShot=0;
+
+        while (!(playerPerfectShotCount == 3 || computerPerfectShotCount == 3)) {
+
+
+            System.out.print("Where do you want to Shot? (Enter 1-10): ");
+            playerShot = read.nextInt();
+            boolean playerShotCheck = (playerShot == computerShortBoatCell || playerShot == computerLongBoatFirstCell || playerShot == computerLongBoatSecondCell);
+            computerShot = random.nextInt(10 - 1 + 1) + 1;
+            boolean computerShotCheck = (computerShot == playerShortBoatCell || computerShot == playerLongBoatFirstCell || computerShot == playerLongBoatsecondCell);
+
+
+            if (playerShotCheck) {
+
+                System.out.println("\n" + playerName + " got a perfect shot at a COMPUTER's ship!!!");
+                playerPerfectShotCount++;
+                if (playerPerfectShotCount == 1)
+                    playerFristCorrectShot = playerShot;
+                else if (playerPerfectShotCount == 2)
+                    playerSecondCorrectShot = playerShot;
+                else
+                    playerThirdCorrectShot = playerShot;
+            } else {
+                System.out.println(playerName + " missed.");
+                playerWrongShotCount++;
+
+                if (playerWrongShotCount == 1)
+                    playerFristWrongShot = playerShot;
+                if (playerWrongShotCount == 2)
+                    playerSecondWrongShot = playerShot;
+                if (playerWrongShotCount == 3)
+                    playerThirdWrongShot = playerShot;
+            }
+
+            System.out.println("COMPUTER chooses to Shot at spot " + computerShot);
+
+            if (computerShotCheck) {
+                System.out.println("COMPUTER got a perfect shot at a " + playerName + "'s ship!!!\n");
+                computerPerfectShotCount++;
+                if (computerPerfectShotCount == 1)
+                    computerFristCorrectShot = computerShot;
+                else if (computerPerfectShotCount == 2)
+                    computerSecondCorrectShot = computerShot;
+                else
+                    computerThirdCorrectShot = computerShot;
+
+            } else {
+                System.out.println("Computer missed.\n\n");
+                computerWrongShotCount++;
+
+            }
+
+            System.out.println(playerName + ":");
+            if (playerShotCheck == true) {
+                if (playerPerfectShotCount == 1)
+                    playerRightShot1(playerFristCorrectShot);
+                if (playerPerfectShotCount == 2)
+                    playerRightShot2(playerFristCorrectShot, playerSecondCorrectShot);
+                if (playerPerfectShotCount == 3)
+                    playerRightShot3(playerFristCorrectShot, playerSecondCorrectShot, playerThirdCorrectShot);
+            } else {
+                if (playerWrongShotCount == 1)
+                    playerwrongShot1(playerFristWrongShot);
+                if(playerWrongShotCount==2)
+                    playerwrongShot2(playerFristWrongShot,playerSecondWrongShot);
+                if (playerWrongShotCount == 3)
+                    playerwrongShot3(playerFristCorrectShot, playerSecondWrongShot, playerThirdWrongShot);
+                else
+                    playerwrongShot3(playerFristCorrectShot, playerSecondWrongShot, playerThirdWrongShot);
+            }
+            System.out.println("\n\nComputer:");
+            if (computerShotCheck == true) {
+                if (computerPerfectShotCount==1)
+                    computerRightShot1(computerFristCorrectShot);
+                if (computerPerfectShotCount==2)
+                    computerRightShot2(computerFristCorrectShot, computerSecondCorrectShot);
+                if (computerPerfectShotCount==3)
+                    computerRightShot3(computerFristCorrectShot, computerSecondCorrectShot, computerThirdCorrectShot);
+
+            }
+            else
+            {
+                if (computerWrongShotCount==1)
+                    computerWrongShot1(computerFristWrongShot);
+                if (computerWrongShotCount==2)
+                    computerWrongShot2(computerFristWrongShot, computerSecondWrongShot);
+                if (computerWrongShotCount==3)
+                    computerWrongShot3(computerFristWrongShot, computerSecondWrongShot, computerThirdWrongShot);
+                else
+                    computerWrongShot3(computerFristWrongShot, computerSecondWrongShot, computerThirdWrongShot);
+
+            }
+        }
+    }
+
+
+    public static void playerwrongShot1(int worngShot1) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[worngShot1 - 1] = "|  -  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void playerwrongShot2(int worngShot1, int wrongShot2) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[worngShot1 - 1] = "|  -  ";
+        partitionLine[wrongShot2 - 1] = "|  -  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void playerwrongShot3(int worngShot1, int wrongShot2, int wrongShot3) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[worngShot1 - 1] = "|  -  ";
+        partitionLine[wrongShot2 - 1] = "|  -  ";
+        partitionLine[wrongShot3 - 1] = "|  -  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void playerRightShot1(int rightShot1) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[rightShot1 - 1] = "|  x  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+
+    public static void playerRightShot2(int rightShot1, int rightShot2) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[rightShot1 - 1] = "|  x  ";
+        partitionLine[rightShot2 - 1] = "|  x  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+
+    public static void playerRightShot3(int rightShot1, int rightShot2, int rightShot3) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[rightShot1 - 1] = "|  x  ";
+        partitionLine[rightShot2 - 1] = "|  x  ";
+        partitionLine[rightShot3 - 1] = "|  x  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+
+    public static void playerInitialBattelBoard() {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void playerShortBoatPlacement(int p_shortBoatCell) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+
+        if (p_shortBoatCell == 10)
+            partitionLine[p_shortBoatCell - 1] = "|  *   |";
+        else
+            partitionLine[p_shortBoatCell - 1] = "|  *  ";
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void playerLongBoatPlacement(int p_shortBoatCell, int p_longBoatFirstCell) {
+        String[] partitionLine = new String[]{"|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     ", "|     |"};
+        partitionLine[p_shortBoatCell - 1] = "|  *  ";
+        partitionLine[p_longBoatFirstCell - 1] = "|  *  ";
+        partitionLine[p_longBoatFirstCell] = "|  *  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void computerInitialBattelBoard() {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void computerRightShot1(int rightShot1) {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+        partitionLine[rightShot1 - 1] = "|  x  ";
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void computerRightShot2(int rightShot1, int rightShot2) {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+        partitionLine[rightShot1 - 1] = "|  x  ";
+        partitionLine[rightShot2 - 1] = "|  x  ";
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+    public static void computerRightShot3(int rightShot1, int rightShot2, int rightShot3) {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+        partitionLine[rightShot1 - 1] = "|  x  ";
+        partitionLine[rightShot2 - 1] = "|  x  ";
+        partitionLine[rightShot3 - 1] = "|  x  ";
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+
+    public static void computerWrongShot1(int wrongShot1) {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+        partitionLine[wrongShot1 ] = "|  *  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+
+    public static void computerWrongShot2(int wrongShot1, int wrongShot2) {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+        partitionLine[wrongShot1 ] = "|  *  ";
+        partitionLine[wrongShot2 ] = "|  *  ";
+
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+
+
+    public static void computerWrongShot3(int wrongShot1, int wrongShot2, int wrongShot3) {
+        String[] partitionLine = new String[]{"|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  ", "|  ?  |"};
+        partitionLine[wrongShot1 ] = "|  *  ";
+        partitionLine[wrongShot2 ] = "|  *  ";
+        partitionLine[wrongShot3 ] = "|  *  ";
+
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(partitionLine[i]);
+        }
+        System.out.println();
+        System.out.println(" ===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+        System.out.println("   1     2     3     4     5     6     7     8     9     10");
+    }
+}
