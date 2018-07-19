@@ -1,0 +1,26 @@
+package InterfaceTest;
+
+public class Rectangle implements Measurable{
+    public double calculateArea(double base, double height)
+    {
+         double rectangelArea = base * height;
+        return rectangelArea;
+    }
+}
+
+
+
+
+/*
+System.out.println("Choose the first shape to compare +" +
+                "1. Circle" +
+                "2. Triangle" +
+                "3. Rectangle");
+        int firstShape = read.nextInt();
+
+        System.out.println("Choose the second shape to compare +" +
+                "1. Circle" +
+                "2. Triangle" +
+                "3. Rectangle");
+        int secondShape = read.nextInt();
+ */
