@@ -1,0 +1,8 @@
+package InterfaceTest;
+
+public class Triangle implements Measurable {
+    public double calculateArea (double base, double height)
+    {
+        return 0.5 * (base *  height);
+    }
+}
