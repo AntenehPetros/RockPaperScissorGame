@@ -1,0 +1,5 @@
+package InterfaceTest;
+
+public interface Measurable {
+    double calculateArea(double value1, double value2);
+}
