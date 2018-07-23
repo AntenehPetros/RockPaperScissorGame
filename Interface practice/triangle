@@ -1,8 +1,33 @@
 package InterfaceTest;
 
 public class Triangle implements Measurable {
-    public double calculateArea (double base, double height)
+
+    private double base;
+    private double height;
+    private double diagonal;
+
+    public Triangle (double base, double height){
+        this.base = base;
+        this.height = height;
+    }
+
+    public void setDiagonal(double diagonal)
+    {
+        this.diagonal = diagonal;
+    }
+
+    public double getDiagonal ()
+    {
+        return diagonal;
+    }
+
+    public double calculateArea ()
     {
         return 0.5 * (base *  height);
+    }
+
+    public double circumference ()
+    {
+        return 0.5 * (base +  height + diagonal);
     }
 }
