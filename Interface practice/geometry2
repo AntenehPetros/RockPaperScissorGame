@@ -3,133 +3,162 @@ package InterfaceTest;
 import java.util.Scanner;
 
 public class Geometry {
-
-    public static int firstShape, secondShape;
     public static void main(String[] args) {
-
         Scanner read = new Scanner(System.in);
-        System.out.println("Choose the first shape to compare \n" +
+        char doAgain = ' ';
+
+        do {
+            firstArea();
+            secondArea();
+            System.out.println("\nWant to try again???   [Y/N]");
+            doAgain = read.next().charAt(0);
+
+        } while (doAgain == 'Y');
+        System.out.println("\nProgram ended! Thank you!!!");
+    }
+
+    public static double firstArea() {
+        Scanner read = new Scanner(System.in);
+        double firstArea = 0;
+        double firstCircumference;
+
+
+        System.out.println("\n\nChoose the first shape to compare \n" +
                 "1. Circle\n" +
                 "2. Triangle\n" +
                 "3. Rectangle\n");
         int firstShape = read.nextInt();
+        System.out.println();
 
+        switch (firstShape) {
+            case 1: {
+                System.out.println("You choose Circle\n");
+                System.out.print("Please enter the radius of the circle:       ");
+                double raduis = read.nextDouble();
+                Circle circle1 = new Circle(raduis);
+                firstArea = circle1.calculateArea();
+                System.out.println();
+                System.out.println("Area of the circle is:                       " + firstArea);
+                System.out.println();
+                firstCircumference = circle1.circumference();
+                System.out.println("Circumference of the circle is:              " + firstCircumference);
+                break;
+            }
+            case 2: {
+                System.out.print("You choose Triangle\n");
+                System.out.println();
+                System.out.print("Pleas enter the base of the triangle:        ");
+                double baseOfTiangle = read.nextDouble();
+                System.out.println();
+                System.out.print("Please enter the height of the triangle:     ");
+                double heightOfTriangle = read.nextDouble();
+                System.out.println();
+                Triangle triangle1 = new Triangle(baseOfTiangle, heightOfTriangle);
+                firstArea = triangle1.calculateArea();
+                System.out.print("Enter the diagonal of the triangle:          ");
+                double diagonal = read.nextDouble();
+                triangle1.setDiagonal(diagonal);
+                System.out.println();
+                System.out.println("Area of the triangle is:                     " + firstArea);
+                System.out.println();
+                firstCircumference = triangle1.circumference();
+                System.out.println("Circumference of the triangle is:            " + firstCircumference);
+                break;
+            }
+            case 3: {
+                System.out.print("You choose Rectangle       ");
+                System.out.println();
+                System.out.print("\nPleas enter the base of the rectangle:        ");
+                double baseOfRectngle = read.nextDouble();
+                System.out.print("\nPlease enter the height of the rectangle:     ");
+                double heightOfRectangle = read.nextDouble();
+                Rectangle rectangle1 = new Rectangle(baseOfRectngle, heightOfRectangle);
+                firstArea = rectangle1.calculateArea();
+                System.out.println();
+                System.out.println("Area of the rectangle is:                    " + firstArea);
+                System.out.println();
+                firstCircumference = rectangle1.circumference();
+                System.out.println("Circumference of the triangle is:            " + firstCircumference);
+                break;
+            }
 
-        System.out.println("Choose the second shape to compare \n" +
+            default: {
+                System.out.println("You choose a wrong number!");
+                firstShape = 0;
+            }
+        }
+        return firstArea;
+    }
+
+    public static double secondArea() {
+
+        Scanner read = new Scanner(System.in);
+        double secondArea = 0;
+        double secondCircumference;
+        System.out.println();
+        System.out.println("\n\nChoose the second shape to compare \n" +
                 "1. Circle\n" +
                 "2. Triangle\n" +
                 "3. Rectangle\n");
         int secondShape = read.nextInt();
-        mainCopy();
-
-
-    }
-
-
-    public static void mainCopy() {
-
-        Scanner read = new Scanner(System.in);
-        Circle circle1 = new Circle();
-        Triangle triangle1 = new Triangle();
-        Rectangle rectangle = new Rectangle();
-
-
-        if (firstShape == 1 && secondShape == 2) {
-            if (areaIsGreater(circle1, triangle1)) {
-                System.out.println("\nThe area of the circle is greather than the area of the triangle\n");
-
-
-            } else System.out.println("\nThe area of the circle is less than the area of the triangle \n");
-        } else if (firstShape == 1 && secondShape == 3) {
-            if (areaIsGreater(circle1, triangle1)) {
-                System.out.println("\nThe area of the circle is greather than the area of the rectangle\n");
-
-
-            } else System.out.println("\nThe area of the circle is less than the area of the rectangle \n");
-        } else if (firstShape == 2 && secondShape == 3) {
-            if (areaIsGreater(circle1, triangle1)) {
-                System.out.println("\nThe area of the triangle is greather than the area of the rectangle\n");
-
-
-            } else System.out.println("\nThe area of the triangle is less than the area of the rectangle \n");
-        } else {
-            System.out.println("You choice is invalid! Do you want to start over [Y/N]");
-
-        }
-
-
-        System.out.println("\nDo you want to start over [Y/N] \n");
-        char startOver = read.next().charAt(0);
-
-
-        if (startOver == 'Y')
-            mainCopy();
-    }
-
-    public static boolean areaIsGreater(Measurable shape1, Measurable shape2) {
-
-
-        double firstValue = 0, secondValue = 0;
-        Scanner read = new Scanner(System.in);
-
-
-
-
-        switch (firstShape) {
-            case 1: {
-                System.out.print("\nPlease enter the radius of the circle:      ");
-                double raduis = read.nextDouble();
-                firstValue = shape1.calculateArea(raduis, 0);
-                break;
-            }
-            case 2: {
-                System.out.print("\nPleas enter the base of the triangle:       ");
-                double baseOfTiangle = read.nextDouble();
-                System.out.print("\nPlease enter the height of the triangle:    ");
-                double heightOfTriangle = read.nextDouble();
-                firstValue = shape1.calculateArea(baseOfTiangle, heightOfTriangle);
-                break;
-            }
-            case 3: {
-                System.out.print("\nPleas enter the base of the triangle:       ");
-                double baseOfTiangle = read.nextDouble();
-                System.out.print("\nPlease enter the height of the triangle:    ");
-                double heightOfTriangle = read.nextDouble();
-                firstValue = shape1.calculateArea(baseOfTiangle, heightOfTriangle);
-                break;
-
-            }
-        }
-
+        System.out.println();
 
         switch (secondShape) {
-
             case 1: {
-                System.out.print("\nPlease enter the radius of the circle:      ");
+                System.out.println("You choose Circle1\n");
+                System.out.print("Please enter the radius of the circle:       ");
                 double raduis = read.nextDouble();
-                secondValue = shape1.calculateArea(raduis, 0);
+                System.out.println();
+                Circle circle1 = new Circle(raduis);
+                secondArea = circle1.calculateArea();
+                System.out.println("Area of the circle is:                       " + secondArea);
+                System.out.println();
+                secondCircumference = circle1.circumference();
+                System.out.println("Circumference of the circle is:              " + secondCircumference);
                 break;
             }
             case 2: {
-                System.out.print("\nPleas enter the base of the triangle:       ");
+                System.out.print("You choose Triangle\n");
+                System.out.println();
+                System.out.print("Pleas enter the base of the triangle:        ");
                 double baseOfTiangle = read.nextDouble();
-                System.out.print("\nPlease enter the height of the triangle:    ");
+                System.out.println();
+                System.out.print("Please enter the height of the triangle:     ");
                 double heightOfTriangle = read.nextDouble();
-                secondValue = shape1.calculateArea(baseOfTiangle, heightOfTriangle);
+                System.out.println();
+                Triangle triangle1 = new Triangle(baseOfTiangle, heightOfTriangle);
+                secondArea = triangle1.calculateArea();
+                System.out.print("Enter the diagonal of the triangle:          ");
+                double diagonal = read.nextDouble();
+                triangle1.setDiagonal(diagonal);
+                System.out.println();
+                System.out.println("Area of the triangle is:                     " + secondArea);
+                System.out.println();
+                secondCircumference = triangle1.circumference();
+                System.out.println("Circumference of the triangle is:            " + secondCircumference);
                 break;
             }
             case 3: {
+                System.out.println("You choose Rectangle       ");
                 System.out.print("\nPleas enter the base of the rectangle:       ");
-                double baseOfrectangle = read.nextDouble();
+                double baseOfRectngle = read.nextDouble();
                 System.out.print("\nPlease enter the height of the rectangle:    ");
-                double heightOfrecangle = read.nextDouble();
-                secondValue = shape1.calculateArea(baseOfrectangle, heightOfrecangle);
+                double heightOfRectangle = read.nextDouble();
+                Rectangle rectangle1 = new Rectangle(baseOfRectngle, heightOfRectangle);
+                secondArea = rectangle1.calculateArea();
+                System.out.println();
+                System.out.println("Area of the rectangle is:                    " + secondArea);
+                System.out.println();
+                secondCircumference = rectangle1.circumference();
+                System.out.println("Circumference of the triangle is:            " + secondCircumference);
                 break;
             }
+
+            default: {
+                System.out.println("You choose a wrong number!");
+                secondShape = 0;
+            }
         }
-
-
-        return firstValue >= secondValue;
+        return secondArea;
     }
-
 }
